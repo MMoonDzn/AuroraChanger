@@ -1,4 +1,14 @@
 --- Womp Womp 💦
+if identifyexecutor() == "Solara" or identifyexecutor() == "Xeno" then
+    game:GetService("Players").LocalPlayer:Kick("[Aurora Loader] \n Executor not supported.\n \n Join: https://discord.gg/projectaurora if u need support")
+    setclipboard("https://discord.gg/projectaurora")
+    return
+end
+
+local lplr = game:GetService("Players").LocalPlayer
+local olderror = error
+getgenv().error = function(...) lplr:Kick(...) end
+error = getgenv().error
 local function Verify()
     if type(getconnections) ~= "function" then
         return false
@@ -30,6 +40,8 @@ end
 
 if Verify() then
     loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/62cee44fa4b2a83752a4ea9e8eef7081.lua"))()
+    getgenv().error = olderror
+    error = olderror
 else
-    game.Players.LocalPlayer:Kick("[LOADER] Unsupported Executor - Missing getconnections")
+    lplr:Kick("[LOADER] Unsupported Executor - Missing getconnections")
 end
