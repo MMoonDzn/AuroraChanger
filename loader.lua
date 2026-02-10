@@ -5,43 +5,29 @@ if identifyexecutor() == "Solara" or identifyexecutor() == "Xeno" then
     return
 end
 
-local lplr = game:GetService("Players").LocalPlayer
-local olderror = error
-getgenv().error = function(...) lplr:Kick(...) end
-error = getgenv().error
-local function Verify()
-    if type(getconnections) ~= "function" then
-        return false
-    end
-
-    local event = Instance.new("BindableEvent")
-    local fired = false
-
-    event.Event:Connect(function()
-        fired = true
-    end)
-
-    local success, connections = pcall(getconnections, event.Event)
-
-    if not success or type(connections) ~= "table" or #connections == 0 then
-        return false
-    end
-
-    local connection = connections[1]
-    if type(connection.Disconnect) ~= "function" then
-        return false
-    end
-
-    connection:Disconnect()
-    event:Fire()
-
-    return fired == false
+local LocalPlayer = game.GetService(game, "Players").LocalPlayer
+local Kick = LocalPlayer.Kick
+if not xpcall then
+    return Kick(LocalPlayer, "tf?")
 end
+xpcall(function()
+    if type(getgenv) ~= "function" then return error("missing genv") end
+    local GlobalEnv = getgenv()
+    if type(GlobalEnv) ~= "table" then return error("missing genv") end 
+    local getconnections = GlobalEnv.getconnections
+    if type(getconnections) ~= "function" then return error("missing getconnections") end
+    local conns = getconnections(game.GetService(game, "RunService").RenderStepped)
+    if type(conns) ~= "table" or #conns == 0 then return error("missing getconnections") end
+    local Passed = false
+    for i, v in next, conns do
+        if v.Disable then
+            Passed = true
+            break
+        end
+    end
+    if not Passed then return error("missing getconnections") end
 
-if Verify() then
-    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/62cee44fa4b2a83752a4ea9e8eef7081.lua"))()
-    getgenv().error = olderror
-    error = olderror
-else
-    lplr:Kick("[LOADER] Unsupported Executor - Missing getconnections")
-end
+    return loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/62cee44fa4b2a83752a4ea9e8eef7081.lua"))()
+end, function(...)
+    Kick(LocalPlayer, ...)
+end)
