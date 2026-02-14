@@ -1,23 +1,23 @@
 --- Womp Womp 💦
-if identifyexecutor() == "Solara" or identifyexecutor() == "Xeno" then
+--[[if identifyexecutor() == "Solara" or identifyexecutor() == "Xeno" then
     game:GetService("Players").LocalPlayer:Kick("[Aurora Loader] \n Executor not supported.\n \n Join: https://discord.gg/projectaurora if u need support")
     setclipboard("https://discord.gg/projectaurora")
     return
-end
+end]]
 
 local LocalPlayer = game.GetService(game, "Players").LocalPlayer
 local Kick = LocalPlayer.Kick
 if not xpcall then
-    return Kick(LocalPlayer, "tf?")
+    return Kick(LocalPlayer, "[Aurora Loader] \n Executor not supported.\n \n [Error 01 - Tf?] \n Join: https://discord.gg/projectaurora if u need support")
 end
 xpcall(function()
-    if type(getgenv) ~= "function" then return error("missing genv") end
+    if type(getgenv) ~= "function" then return error("[Aurora Loader] \n Executor not supported.\n \n [Error 02 - Missing Getgenv] \n Join: https://discord.gg/projectaurora if u need support") end
     local GlobalEnv = getgenv()
-    if type(GlobalEnv) ~= "table" then return error("missing genv") end 
+    if type(GlobalEnv) ~= "table" then return error("[Aurora Loader] \n Executor not supported.\n \n [Error 03 - Missing Getgenv] \n Join: https://discord.gg/projectaurora if u need support") end 
     local getconnections = GlobalEnv.getconnections
-    if type(getconnections) ~= "function" then return error("missing getconnections") end
+    if type(getconnections) ~= "function" then return error("[Aurora Loader] \n Executor not supported.\n \n [Error 04 - Missing GetConnections] \n Join: https://discord.gg/projectaurora if u need support") end
     local conns = getconnections(game.GetService(game, "RunService").RenderStepped)
-    if type(conns) ~= "table" or #conns == 0 then return error("missing getconnections") end
+    if type(conns) ~= "table" or #conns == 0 then return error("[Aurora Loader] \n Executor not supported.\n \n [Error 05 - Missing GetConnections] \n Join: https://discord.gg/projectaurora if u need support") end
     local Passed = false
     for i, v in next, conns do
         if v.Disable then
@@ -25,7 +25,7 @@ xpcall(function()
             break
         end
     end
-    if not Passed then return error("missing getconnections") end
+    if not Passed then return error("[Aurora Loader] \n Executor not supported.\n \n [Error 06 - Missing GetConnections] \n Join: https://discord.gg/projectaurora if u need support") end
 
     return loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/62cee44fa4b2a83752a4ea9e8eef7081.lua"))()
 end, function(...)
