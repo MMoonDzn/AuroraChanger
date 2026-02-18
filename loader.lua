@@ -1,9 +1,9 @@
 --- Womp Womp 💦
---[[if identifyexecutor() == "Solara" or identifyexecutor() == "Xeno" then
+local Exec = string.lower(identifyexecutor and identifyexecutor() or "")
+if Exec == "" or (string.find(Exec, "solara") or string.find(Exec, "xeno")) then
     game:GetService("Players").LocalPlayer:Kick("[Aurora Loader] \n Executor not supported.\n \n Join: https://discord.gg/projectaurora if u need support")
-    setclipboard("https://discord.gg/projectaurora")
     return
-end]]
+end
 
 local LocalPlayer = game.GetService(game, "Players").LocalPlayer
 local Kick = LocalPlayer.Kick
