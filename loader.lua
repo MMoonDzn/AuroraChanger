@@ -27,7 +27,7 @@ xpcall(function()
     end
     if not Passed then return error("[Aurora Loader] \n Executor not supported.\n \n [Error 06 - Missing GetConnections] \n Join: https://discord.gg/projectaurora if u need support") end
 
-    return loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/62cee44fa4b2a83752a4ea9e8eef7081.lua"))()
+    return loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/62cee44fa4b2a83752a4ea9e8eef7081.lua"))()
 end, function(...)
     Kick(LocalPlayer, ...)
 end)
